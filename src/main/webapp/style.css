@@ -1,5 +1,5 @@
 h1 {
-    color: blue;
+    color: chocolate;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bold;
 }
@@ -8,6 +8,7 @@ th {
     color: black;
     font-weight: bold;
     background-color: darkgray;
+    border: 1px solid black;
 }
 
 label {
@@ -19,11 +20,6 @@ label {
     margin: 81px;
     background-color: lightgray;
     color: black;
-}
-
-
-#tabelaAtor {
-    margin-left: 90px;
-    margin-right: 90px;
+    border: 1px solid black;
 
 }
