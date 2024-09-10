@@ -1,10 +1,28 @@
-h1{
-    color: deepskyblue;
+h1 {
+    color: blue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bold;
 }
 
+th {
+    color: black;
+    font-weight: bold;
+    background-color: darkgray;
+}
 
-#tabelaAtor{
+label {
+    color: black;
+    font-weight: bold;
+}
+
+.fundo {
+    margin: 80px;
+    background-color: lightgray;
+    color: black;
+}
+
+
+#tabelaAtor {
     margin-left: 90px;
     margin-right: 90px;
 
