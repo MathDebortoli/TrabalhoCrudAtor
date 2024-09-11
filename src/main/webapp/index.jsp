@@ -11,7 +11,7 @@
 
 <body>
 
-    <form method="get" >
+    <form method="get" action="cadastrarAtor">
 
 
         <div class="fundo">
@@ -33,7 +33,7 @@
                 <div class="row mt-3">
                     <div class="col mb-3">
                         <div class="">
-                            <button type="button" class="btn btn-dark" onclick="validarNome()">Cadastrar</button>
+                            <button type="submit" class="btn btn-dark" onclick="validarNome()">Cadastrar</button>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
 
     <script>
         function validarNome() {
-            var nome = document.getElementById("nome").value;
+            let nome = document.getElementById("nome").value;
             if (nome == "") {
                 alert("O campo nome é obrigatório!");
             }
@@ -83,15 +83,15 @@
 
         function addTable() {
             // Obtém a referência da tabela
-            var tabela = document.getElementById("tabelaAtor");
+            let tabela = document.getElementById("tabelaAtor");
 
             // Cria uma nova linha na tabela
-            var linha = tabela.insertRow(0); // Insere no início da tabela. Use tabela.insertRow() para adicionar no final
+            let linha = tabela.insertRow(0); // Insere no início da tabela. Use tabela.insertRow() para adicionar no final
 
             // Cria as células na nova linha
-            var celula1 = linha.insertCell(0);
-            var celula2 = linha.insertCell(1);
-            var celula3 = linha.insertCell(2);
+            let celula1 = linha.insertCell(0);
+            let celula2 = linha.insertCell(1);
+            let celula3 = linha.insertCell(2);
 
             // Adiciona conteúdo nas células
             celula1.innerHTML = "1"; // Exemplo de conteúdo
