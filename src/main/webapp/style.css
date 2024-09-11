@@ -11,6 +11,11 @@ th {
     border: 1px solid black;
 }
 
+.borda-linha {
+    border: 2px solid black; /* Define a borda com 2px de largura e cor preta */
+}
+
+
 label {
     color: black;
     font-weight: bold;

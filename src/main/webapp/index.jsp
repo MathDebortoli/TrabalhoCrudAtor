@@ -33,7 +33,7 @@
                 <div class="row mt-3">
                     <div class="col mb-3">
                         <div class="">
-                            <button type="submit" class="btn btn-dark" onclick="validarNome()">Cadastrar</button>
+                            <button type="submit" class="btn btn-success" onclick="validarNome()">Cadastrar</button>
                         </div>
                     </div>
                 </div>
@@ -71,6 +71,8 @@
     </form>
 
     <script>
+        let cont = 0;
+
         function validarNome() {
             let nome = document.getElementById("nome").value;
             if (nome == "") {
@@ -82,11 +84,15 @@
         }
 
         function addTable() {
+            cont++;
             // Obtém a referência da tabela
             let tabela = document.getElementById("tabelaAtor");
 
+
             // Cria uma nova linha na tabela
-            let linha = tabela.insertRow(0); // Insere no início da tabela. Use tabela.insertRow() para adicionar no final
+            let linha = tabela.insertRow(1); // Insere no início da tabela. Use tabela.insertRow() para adicionar no final
+
+            linha.classList.add("borda-linha");
 
             // Cria as células na nova linha
             let celula1 = linha.insertCell(0);
@@ -94,10 +100,12 @@
             let celula3 = linha.insertCell(2);
 
             // Adiciona conteúdo nas células
-            celula1.innerHTML = "1"; // Exemplo de conteúdo
-            celula2.innerHTML = "Nome"; // Exemplo de conteúdo
-            celula3.innerHTML = "<button class='btn btn-danger'>Excluir</button>"; // Botão com classe Bootstrap
+            celula1.innerHTML = cont.toString(); // Exemplo de conteúdo
+            celula2.innerHTML = document.getElementById("nome").value;// Exemplo de conteúdo
+            celula3.innerHTML = "<button class='btn btn-danger'>Excluir</button>" + " <button class='btn btn-warning'>Alterar</button>"; // Botão com classe Bootstrap
         }
+
+    </script>
 
     </script>
 
