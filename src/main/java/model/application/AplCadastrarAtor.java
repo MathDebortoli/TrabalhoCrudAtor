@@ -1,6 +1,9 @@
 package model.application;
 
 import model.dao.DaoGeneric;
+import model.domain.DomAtor;
+
+import java.util.List;
 
 public class AplCadastrarAtor {
     private DaoGeneric dao = null;
@@ -9,8 +12,23 @@ public class AplCadastrarAtor {
         dao = new DaoGeneric();
     }
 
-    public String testeConexao(){
-        return dao.teste();
+    public int addAtor(DomAtor ator) {
+        return dao.addAtor(ator);
     }
+
+    public int removeAtor(DomAtor ator) {
+        System.out.println("queijo");
+
+        return dao.removeAtor(ator);
+    }
+
+    public int editAtor(DomAtor ator) {
+        return dao.editAtor(ator);
+    }
+
+    public List<DomAtor> getAtores() {
+        return dao.getAtores();
+    }
+
 
 }

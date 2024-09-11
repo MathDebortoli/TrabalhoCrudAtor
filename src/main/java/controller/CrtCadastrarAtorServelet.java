@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.application.AplCadastrarAtor;
+import model.domain.DomAtor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,8 +22,15 @@ public class CrtCadastrarAtorServelet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
+        String nome = request.getParameter("txt-nome");
+
         AplCadastrarAtor aplCadastrarAtor = new AplCadastrarAtor();
-        aplCadastrarAtor.testeConexao();
+        DomAtor ator = new DomAtor(nome);
+        System.out.println("mec");
+
+        int i = aplCadastrarAtor.removeAtor(ator);
+        System.out.println("dale");
+
 
         response.sendRedirect("index.jsp");
 

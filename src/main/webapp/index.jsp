@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="nome">Digite o nome do Ator:</label>
-                        <input type="text" class="form-control" id="nome" name="nome">
+                        <input type="text" class="form-control" id="nome" name="txt-nome">
                     </div>
                 </div>
 

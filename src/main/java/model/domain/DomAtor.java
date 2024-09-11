@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class DomAtor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "nome", nullable = false, length = 25)
