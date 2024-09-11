@@ -21,14 +21,11 @@ public class CrtCadastrarAtorServelet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
-
         AplCadastrarAtor aplCadastrarAtor = new AplCadastrarAtor();
-        out.println(aplCadastrarAtor.testeConexao());
+        aplCadastrarAtor.testeConexao();
+
+        response.sendRedirect("index.jsp");
+
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

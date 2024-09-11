@@ -13,6 +13,4 @@ public class AplCadastrarAtor {
         return dao.teste();
     }
 
-
-
 }
