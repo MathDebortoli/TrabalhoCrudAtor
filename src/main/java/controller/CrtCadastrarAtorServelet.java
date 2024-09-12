@@ -13,11 +13,6 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "cadastrarAtor", value = "/cadastrarAtor")
 public class CrtCadastrarAtorServelet extends HttpServlet {
-    private String message;
-
-    public void init() {
-        message = "Hello World!";
-    }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -27,8 +22,7 @@ public class CrtCadastrarAtorServelet extends HttpServlet {
         AplCadastrarAtor aplCadastrarAtor = new AplCadastrarAtor();
         DomAtor ator = new DomAtor(nome);
 
-        int i = aplCadastrarAtor.removeAtor(ator);
-
+        int i = aplCadastrarAtor.addAtor(ator);
 
         response.sendRedirect("index.jsp");
 
@@ -36,12 +30,7 @@ public class CrtCadastrarAtorServelet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
+        System.out.println("salve maria");
     }
 
     public void destroy() {
