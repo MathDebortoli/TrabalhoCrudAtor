@@ -27,7 +27,7 @@ public class CrtCadastrarAtorServelet extends HttpServlet {
         AplCadastrarAtor aplCadastrarAtor = new AplCadastrarAtor();
         DomAtor ator = new DomAtor(nome);
 
-        int i = aplCadastrarAtor.addAtor(ator);
+        int i = aplCadastrarAtor.removeAtor(ator);
 
 
         response.sendRedirect("index.jsp");
