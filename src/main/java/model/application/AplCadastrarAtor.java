@@ -17,8 +17,6 @@ public class AplCadastrarAtor {
     }
 
     public int removeAtor(DomAtor ator) {
-        System.out.println("queijo");
-
         return dao.removeAtor(ator);
     }
 

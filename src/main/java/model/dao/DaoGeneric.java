@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DaoGeneric {
@@ -100,14 +102,20 @@ public class DaoGeneric {
     }
 
     public List<DomAtor> getAtores() {
-        try (Session session = sessionFactory.openSession()) {
-            // Busca todos os atores
-            return session.createQuery("from DomAtor", DomAtor.class).list();
+        List lista = new ArrayList<DomAtor>();
+        Transaction transaction = null;
+        Query query = null;
+
+        try (Session session = sessionFactory.openSession()){
+            transaction = session.beginTransaction();
+            query = session.createQuery("from DomAtor ");
+            lista = query.getResultList();
+            session.close();
         } catch (HibernateException e) {
-            System.err.println("Erro ao buscar atores: " + e.getMessage());
+            System.err.println("Erro ao editar ator: " + e.getMessage());
             e.printStackTrace();
-            return null; // Retorna nulo ou uma lista vazia em caso de erro
         }
+        return lista;
     }
 
     // Método para fechar o SessionFactory quando não for mais necessário
