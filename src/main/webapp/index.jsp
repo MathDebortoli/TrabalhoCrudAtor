@@ -35,7 +35,6 @@
             </div>
         </div>
     </div>
-
     <div class="fundo">
         <div class="container text-center">
             <div class="row">
@@ -56,21 +55,30 @@
                         </thead>
                         <tbody>
                         <%
-                            // Recupere a lista de atores da requisição
+
                             List<DomAtor> lista = (List<DomAtor>) request.getAttribute("array");
 
-                            // Verifique se a lista não é nula antes de tentar renderizar
+
                             if (lista != null) {
                                 for (DomAtor ator : lista) {
                         %>
-                        <script>
-                            // Chama a função addTable com os dados dos atores
-                        </script>
+                        <tr>
+                            <td><%= ator.getId() %></td>
+                            <td><%= ator.getNome() %></td>
+                            <td>
+
+                                <button type="button" class="btn btn-warning" onclick="editarNome(this)">Editar</button>
+                                <button type="button" class="btn btn-danger" onclick="excluirAtor(this)">Excluir</button>
+                            </td>
+                        </tr>
                         <%
                             }
-                        } else {
+                        }
+                            else {
                         %>
-                        <p>Nenhum ator encontrado.</p>
+                        <tr>
+                            <td colspan="3">Nenhum ator encontrado.</td>
+                        </tr>
                         <%
                             }
                         %>
@@ -80,57 +88,73 @@
             </div>
         </div>
     </div>
+
 </form>
 
 <script>
     let cont = 0;
 
-    window.onload = function () {
-        for(let i = 0; i < 10; i++) {
-            addTable();
-        }
-    }
+
 
     function validarNome() {
         let nome = document.getElementById("nome").value;
         if (nome == "") {
             alert("O campo nome é obrigatório!");
-        } else {
-            addTable(nome, cont + 1); // Passa um ID fictício ou o ID correto
+        }
+    }
+    function editarNome(button) {
+        var row = button.parentNode.parentNode;
+        var cells = row.getElementsByTagName("td");
+
+
+        var currentValue = cells[1].innerHTML;
+
+        // Substitui o nome por um campo de entrada para edição
+        cells[1].innerHTML = '<input type="text" class="edit-input form-control" value="' + currentValue + '">';
+
+        // Substitui os botões "Editar" e "Excluir" pelos botões "Salvar" e "Cancelar"
+        var actionsCell = cells[2];
+        actionsCell.innerHTML = '<button class="btn btn-success" onclick="salvarEdicao(this)">Salvar</button>' +
+            ' <button class="btn btn-danger" onclick="cancelarEdicao(this, \'' + currentValue + '\')">Cancelar</button>';
+    }
+
+    function salvarEdicao(button) {
+        // Pega a linha da tabela onde o botão "Salvar" foi clicado
+        var row = button.parentNode.parentNode;
+        var cells = row.getElementsByTagName("td");
+
+        // Pega o valor editado do nome
+        var nomeEditado = cells[1].getElementsByTagName("input")[0].value;
+
+        // e substitui
+        cells[1].innerHTML = nomeEditado;
+
+        // Restaura os botões "Editar" e "Excluir"
+        cells[2].innerHTML = '<button class="btn btn-warning" onclick="editarNome(this)">Editar</button> <button class="btn btn-danger" onclick="excluirContato(this)">Excluir</button>';
+
+
+
+    }
+
+    function cancelarEdicao(button, valorOriginal) {
+        // Pega a linha da tabela onde o botão "Cancelar" foi clicado
+        var row = button.parentNode.parentNode;
+        var cells = row.getElementsByTagName("td");
+
+
+        cells[1].innerHTML = valorOriginal;
+
+        // Restaura os botões "Editar" e "Excluir"
+        cells[2].innerHTML = '<button class="btn btn-warning" onclick="editarNome(this)">Editar</button> <button class="btn btn-danger" onclick="excluirContato(this)">Excluir</button>';
+    }
+
+    function excluirAtor(button) {
+        if (confirm("Tem certeza que deseja excluir este ator?")) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
         }
     }
 
-    function addTable(nome, ator) {
-        cont++;
-        // Obtém a referência da tabela
-        let tabela = document.getElementById("tabelaAtor").getElementsByTagName('tbody')[0];
-
-        // Cria uma nova linha na tabela
-        let linha = tabela.insertRow();
-
-        // Cria as células na nova linha
-        let celula1 = linha.insertCell(0);
-        let celula2 = linha.insertCell(1);
-        let celula3 = linha.insertCell(2);
-
-        // Adiciona conteúdo nas células
-        celula1.innerHTML = ator; // ID do ator
-        celula2.innerHTML = nome; // Nome do ator
-
-        // Criando dois formulários separados para cada botão
-        celula3.innerHTML = `
-        <form action="cadastrarAtor" method="post" style="display:inline;">
-        <input type="hidden" name="txt-id" value="${ator}">
-        <input type="hidden" name="action" value="excluir">
-        <button type="submit" class="btn btn-danger">Excluir</button>
-        </form>
-        <form action="cadastrarAtor" method="post" style="display:inline;">
-        <input type="hidden" name="txt-id" value="${ator}">
-        <input type="hidden" name="action" value="alterar">
-        <button type="submit" class="btn btn-warning">Alterar</button>
-        </form>
-        `;
-    }
 </script>
 
 </body>

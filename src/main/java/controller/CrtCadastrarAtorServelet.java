@@ -21,12 +21,22 @@ public class CrtCadastrarAtorServelet extends HttpServlet {
 
         String nome = request.getParameter("txt-nome");
 
+        if (nome != null && !nome.isEmpty()) {
+            AplCadastrarAtor aplCadastrarAtor = new AplCadastrarAtor();
+
+
+            DomAtor ator = new DomAtor();
+            ator.setNome(nome);
+            aplCadastrarAtor.addAtor(ator);
+        }
+
 
         AplCadastrarAtor aplCadastrarAtor = new AplCadastrarAtor();
         List<DomAtor> lista = aplCadastrarAtor.getAtores();
+
+        // Atribui a lista de atores ao request e encaminha para a página JSP
         request.setAttribute("array", lista);
         request.getRequestDispatcher("index.jsp").forward(request, response);
-
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
