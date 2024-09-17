@@ -71,7 +71,7 @@
                         <td><%= ator.getNome() %>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-warning" onclick="editarNome(this)">Editar</button>
+                            <button type="button" class="btn btn-primary" onclick="editarNome(this)">Editar</button>
 
                             <!-- Formulário para exclusão de ator -->
                             <form method="post" action="cadastrarAtor" style="display:inline;">
@@ -128,7 +128,7 @@
             '<input type="hidden" name="id" value="' + currentId + '">' +
             '<input type="hidden" name="nome">' +  // O valor será atualizado na submissão
             '<input type="hidden" name="hid" value="1">' +
-            '<button class="btn btn-success">Salvar</button>' +
+            '<button class="btn btn-warning">Salvar</button>' +
             ' </form>' +
             '<button class="btn btn-danger" onclick="cancelarEdicao(this)">Cancelar</button>';
     }
@@ -144,7 +144,7 @@
 
         // Restaurar os botões originais (Editar e Excluir)
         cells[2].innerHTML =
-            '<button class="btn btn-warning" onclick="editarNome(this)">Editar</button> ' +
+            '<button class="btn btn-primary" onclick="editarNome(this)">Editar</button> ' +
             '<form method="post" action="cadastrarAtor" style="display:inline;">' +
             '<input type="hidden" name="id" value="' + cells[0].innerHTML.trim() + '">' +  // ID do ator
             '<input type="hidden" name="hid" value="2">' +  // Valor de hid para exclusão

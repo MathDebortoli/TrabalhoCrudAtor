@@ -4,6 +4,10 @@ h1 {
     font-weight: bold;
 }
 
+td{
+    background-color: white;
+}
+
 th {
     color: black;
     font-weight: bold;
