@@ -44,6 +44,7 @@ public class CrtCadastrarAtorServelet extends HttpServlet {
             String nome = request.getParameter("nome").trim();
             DomAtor ator = new DomAtor(nome, id);
             System.out.println("teve game?");
+            System.out.println(nome);
             aplCadastrarAtor.editAtor(ator);
         }
         else { //Excluir
