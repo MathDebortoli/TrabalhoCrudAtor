@@ -38,6 +38,8 @@ public class DaoGeneric {
 
             // Comita a transação
             transaction.commit();
+
+
             return 1;
         } catch (HibernateException e) {
             if (transaction != null) {
@@ -55,16 +57,11 @@ public class DaoGeneric {
             // Inicia uma transação
             transaction = session.beginTransaction();
 
-            System.out.println("julio");
-
             // Remove uma entidade DomAtor
             session.remove(ator);
 
             // Comita a transação
             transaction.commit();
-
-            System.out.println("salve");
-
 
             return 1;
         } catch (HibernateException e) {
@@ -103,11 +100,9 @@ public class DaoGeneric {
 
     public List<DomAtor> getAtores() {
         List lista = new ArrayList<DomAtor>();
-        Transaction transaction = null;
         Query query = null;
 
         try (Session session = sessionFactory.openSession()){
-            transaction = session.beginTransaction();
             query = session.createQuery("from DomAtor ");
             lista = query.getResultList();
             session.close();

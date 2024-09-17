@@ -20,6 +20,11 @@ public class DomAtor {
         this.nome = nome;
     }
 
+    public DomAtor(String nome, int id) {
+        this.nome = nome;
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

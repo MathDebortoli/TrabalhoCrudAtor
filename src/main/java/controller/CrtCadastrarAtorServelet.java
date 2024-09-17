@@ -23,25 +23,39 @@ public class CrtCadastrarAtorServelet extends HttpServlet {
 
         if (nome != null && !nome.isEmpty()) {
             AplCadastrarAtor aplCadastrarAtor = new AplCadastrarAtor();
-
-
             DomAtor ator = new DomAtor();
             ator.setNome(nome);
             aplCadastrarAtor.addAtor(ator);
         }
 
-
         AplCadastrarAtor aplCadastrarAtor = new AplCadastrarAtor();
         List<DomAtor> lista = aplCadastrarAtor.getAtores();
-
-        // Atribui a lista de atores ao request e encaminha para a página JSP
         request.setAttribute("array", lista);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
-        System.out.println("salve maria");
+        AplCadastrarAtor aplCadastrarAtor = new AplCadastrarAtor();
+
+        //Editar
+        if (request.getParameter("hid").equals("1")) { //Editar
+            int id = Integer.parseInt(request.getParameter("id").trim());
+            String nome = request.getParameter("nome").trim();
+            DomAtor ator = new DomAtor(nome, id);
+            System.out.println("teve game?");
+            aplCadastrarAtor.editAtor(ator);
+        }
+        else { //Excluir
+            int id = Integer.parseInt(request.getParameter("id").trim());
+            String nome = request.getParameter("nome").trim();
+            DomAtor ator = new DomAtor(nome, id);
+            aplCadastrarAtor.removeAtor(ator);
+        }
+
+        List<DomAtor> lista = aplCadastrarAtor.getAtores();
+        request.setAttribute("array", lista);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     public void destroy() {

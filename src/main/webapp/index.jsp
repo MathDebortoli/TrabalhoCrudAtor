@@ -11,6 +11,7 @@
 </head>
 <body>
 
+<!-- Formulário para cadastro de ator -->
 <form method="get" action="cadastrarAtor">
     <div class="fundo">
         <div class="container text-center mt-3">
@@ -35,126 +36,107 @@
             </div>
         </div>
     </div>
-    <div class="fundo">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col">
-                    <h1>Lista de Atores</h1>
-                </div>
+</form>
+
+<!-- Lista de atores -->
+<div class="fundo">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <h1>Lista de Atores</h1>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col">
-                    <table id="tabelaAtor" class="table mt-2">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Ações</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <%
+        <div class="row">
+            <div class="col">
+                <table id="tabelaAtor" class="table mt-2">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        // Obtendo a lista de atores da requisição
+                        List<DomAtor> lista = (List<DomAtor>) request.getAttribute("array");
 
-                            List<DomAtor> lista = (List<DomAtor>) request.getAttribute("array");
+                        if (lista != null) {
+                            for (DomAtor ator : lista) {
+                    %>
+                    <tr>
+                        <td><%= ator.getId() %>
+                        </td>
+                        <td><%= ator.getNome() %>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning" onclick="editarNome(this)">Editar</button>
 
-
-                            if (lista != null) {
-                                for (DomAtor ator : lista) {
-                        %>
-                        <tr>
-                            <td><%= ator.getId() %></td>
-                            <td><%= ator.getNome() %></td>
-                            <td>
-
-                                <button type="button" class="btn btn-warning" onclick="editarNome(this)">Editar</button>
-                                <button type="button" class="btn btn-danger" onclick="excluirAtor(this)">Excluir</button>
-                            </td>
-                        </tr>
-                        <%
-                            }
+                            <!-- Formulário para exclusão de ator -->
+                            <form method="post" action="cadastrarAtor">
+                                <input type="hidden" name="id" value="<%= ator.getId() %>">
+                                <input type="hidden" name="nome" value="<%= ator.getNome() %>">
+                                <input type="hidden" name="hid" value="2">
+                                <button type="submit" class="btn btn-danger">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <%
                         }
-                            else {
-                        %>
-                        <tr>
-                            <td colspan="3">Nenhum ator encontrado.</td>
-                        </tr>
-                        <%
-                            }
-                        %>
-                        </tbody>
-                    </table>
-                </div>
+                    } else {
+                    %>
+                    <tr>
+                        <td colspan="3">Nenhum ator encontrado.</td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
-</form>
+</div>
 
 <script>
-    let cont = 0;
-
-
-
+    // Função para validar o nome no cadastro
     function validarNome() {
         let nome = document.getElementById("nome").value;
         if (nome == "") {
             alert("O campo nome é obrigatório!");
         }
     }
+
+    // Função para editar nome
     function editarNome(button) {
         var row = button.parentNode.parentNode;
         var cells = row.getElementsByTagName("td");
 
+        var currentId = cells[0].innerHTML;  // ID do ator
+        var currentValue = cells[1].innerHTML;  // Nome atual do ator
 
-        var currentValue = cells[1].innerHTML;
-
-        // Substitui o nome por um campo de entrada para edição
         cells[1].innerHTML = '<input type="text" class="edit-input form-control" value="' + currentValue + '">';
 
-        // Substitui os botões "Editar" e "Excluir" pelos botões "Salvar" e "Cancelar"
-        var actionsCell = cells[2];
-        actionsCell.innerHTML = '<button class="btn btn-success" onclick="salvarEdicao(this)">Salvar</button>' +
-            ' <button class="btn btn-danger" onclick="cancelarEdicao(this, \'' + currentValue + '\')">Cancelar</button>';
+        cells[2].innerHTML =
+            '<form method="post" action="cadastrarAtor">' +
+            '<input type="hidden" name="id" value="' + currentId + '">' +
+            '<input type="hidden" name="nome" value="' + currentValue + '">' +
+            '<input type="hidden" name="hid" value="1">' +
+            '<button class="btn btn-success">Salvar</button>' +
+            '</form>' +
+            '<button class="btn btn-danger" onclick="cancelarEdicao(this, \'' + currentValue + '\')">Cancelar</button>';
     }
-
-    function salvarEdicao(button) {
-        // Pega a linha da tabela onde o botão "Salvar" foi clicado
-        var row = button.parentNode.parentNode;
-        var cells = row.getElementsByTagName("td");
-
-        // Pega o valor editado do nome
-        var nomeEditado = cells[1].getElementsByTagName("input")[0].value;
-
-        // e substitui
-        cells[1].innerHTML = nomeEditado;
-
-        // Restaura os botões "Editar" e "Excluir"
-        cells[2].innerHTML = '<button class="btn btn-warning" onclick="editarNome(this)">Editar</button> <button class="btn btn-danger" onclick="excluirContato(this)">Excluir</button>';
-
-
-
-    }
-
+    
+    // Função para cancelar edição
     function cancelarEdicao(button, valorOriginal) {
-        // Pega a linha da tabela onde o botão "Cancelar" foi clicado
         var row = button.parentNode.parentNode;
         var cells = row.getElementsByTagName("td");
-
 
         cells[1].innerHTML = valorOriginal;
-
-        // Restaura os botões "Editar" e "Excluir"
-        cells[2].innerHTML = '<button class="btn btn-warning" onclick="editarNome(this)">Editar</button> <button class="btn btn-danger" onclick="excluirContato(this)">Excluir</button>';
+        cells[2].innerHTML = '<button class="btn btn-warning" onclick="editarNome(this)">Editar</button> ' +
+            '<button class="btn btn-danger" onclick="excluirContato(this)">Excluir</button>';
     }
-
-    function excluirAtor(button) {
-        if (confirm("Tem certeza que deseja excluir este ator?")) {
-            var row = button.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-        }
-    }
-
 </script>
 
 </body>
